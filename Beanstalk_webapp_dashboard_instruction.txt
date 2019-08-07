@@ -1,0 +1,89 @@
+# instruction
+This is an instruction for deploying Dash app on AWS server. This is an easiest way possible to deploy a webapp, and is meant as pedagogic tool for a beginner. I use Windows10 to run this, but generally, this set of instruction should be quite common, and can be adapted for other operating systems pretty easily. 
+
+AWS uses "beanstalk" which is a web service for deploying app. Beanstalk is very nice for a beginner, as it automatically takes care of and abstracting away a lot of complexities.
+
+1. Create a new directory. "dash-aws"
+In the directory, create a new python file called "application.py" Note that it has to be called application, as beanstalk looks for application by default. Any other name will cause error.
+
+1.1 I recommend to test your code locally.To do so, first we will create a virtual environment, and install all the necessary packages to run the app locally.
+
+1.1.1 To install virtualenv, type this command 
+
+pip install virtualenv 
+
+virtualenv is a tool to create isolated python environments.
+
+1.1.2 Then we need to create a virtual environment called virtual. Type this command:
+
+virtualenv virtual
+
+After a virtual environment is created, you will see a folder called "virtual"
+
+1.1.3 We need to activate the virtual environment. This is done by going to the folder "virtual", go to sub-folder "Scripts". And run the script called "activate" by simply type 
+
+activate
+
+You will see the cmd showing the virtual environment name "virtual", indicating that you're now in the virtual environment.
+
+1.2 Install all the packages needed to run the application.py file 
+If you have requirements.txt Simply type this command
+
+pip install -r requirements.txt
+
+All the packages and dependencies listed in requirements.txt file will be installed for you in the virtual environment.
+
+If not, you can pip install individual packages.
+
+1.3 Test run the application.py
+
+2. Write down a requirements.txt, if you don't have it already. This is a text file that specify the packages, including the versions and their dependencies. If you are running in a virtual environment and you are using pip, you can use this command
+
+pip freeze > requirements.txt
+
+to automatically generate requirements.txt
+
+3. Install EB CLI (Elastic Beanstalk Command Line Interface). This is s comman line client that you will use to manage Elastic Beanstalk environments. See this website for instruction how to install EB CLI. https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html 
+This is how I installed it.
+3.1 Make sure you have git installed. Read more about git here https://en.wikipedia.org/wiki/Git
+
+3.2 Clone the EB CLI repository from GitHub, type:
+
+ git clone https://github.com/aws/aws-elastic-beanstalk-cli-setup.git
+
+You will see a folder aws-elastic-beanstalk-cli-setup
+ 3.3 Run the bundled_installer by going to the folder aws-elastic-beanstalk-cli-setup, then go to scripts, then you will find bundled_installer inside. Run the bundled_installer
+
+ 4. Make sure you have AWS account. If not sign up for one. 
+
+Note on signing up. You have to find the AWS-access-key (This is the so-called public key), and AWS-secret-key. Noted that this is different from the account ID (12 digits number). The AWS-access-key and AWS-secret-key are hideously long, and you must keep it secret.
+
+5. Initiate EB and create an application
+5.1 type
+
+eb init
+
+5.2 set a default region, if they ask application name, give it a name. If it asks for access-key and secret-key, these are what you have (the really long one you downloaded in .csv file) in instruction 4.
+
+5.3 Use python, 3.6 (which is default)
+
+5.4 Do not set up SSH
+
+6. Deploy an app
+
+6.1 create a new environment by type:
+
+ eb create 
+
+enter the environment name, and DNS CNAME. select a load-balancer type (use 2 which is a default for application)
+
+If the work is sucessfull, you will see the result in the updated webapp.
+
+The URL will be: your-environment-name.us-west-2.elasticbeakstalk.com
+
+6.3 To make sure you can see the webapp. You can update any local changes you make to the eb by typing
+
+eb deploy
+
+6.4 If you want to terminate the environment (to save yourself some money, because AWS can cost a lot!) you can delete the app from the cloud. Just type
+eb terminate 
