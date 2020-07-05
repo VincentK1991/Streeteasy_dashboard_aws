@@ -3,7 +3,7 @@
 
 I used Dash/Plotly to visualize the renting data, including price, location, cost of amenities, and how long it takes to get rented since the apartment is listed.
 The data is hosted on Amazon Web Services.
-To see the final product, Go[here](http://streeteasy-dashboard-aws-dev.us-west-2.elasticbeanstalk.com/)
+See the final product [here](http://streeteasy-dashboard-aws-dev.us-west-2.elasticbeanstalk.com/)
 
 ---
 
